@@ -1,0 +1,207 @@
+:root {
+	--bg-body: #202124;
+	--bg-surface: #292a2d;
+	--bg-card: #303134;
+	--text-high: #e8eaed;
+	--text-med: #9aa0a6;
+	--accent: #8ab4f8;
+	--border: #3c4043;
+	--success: #81c995;
+	--error: #f28b82;
+}
+
+body {
+	background-color: var(--bg-body);
+	color: var(--text-high);
+	font-family: 'Google Sans', 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	height: 100vh;
+	overflow: hidden;
+}
+
+/* Layout: Sidebar + Main */
+.app-container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+
+.sidebar {
+	width: 260px;
+	background: var(--bg-surface);
+	border-right: 1px solid var(--border);
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	z-index: 10;
+}
+
+.main-content {
+	flex: 1;
+	overflow-y: auto;
+	padding: 20px 40px;
+	position: relative;
+}
+
+/* Sidebar Elements */
+h1 {
+	font-size: 1.2rem;
+	color: var(--accent);
+	margin-bottom: 20px;
+}
+
+.control-group {
+	margin-bottom: 20px;
+}
+
+.control-label {
+	display: block;
+	color: var(--text-med);
+	font-size: 0.8rem;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Custom Checkbox List */
+.sample-list {
+	flex: 1;
+	overflow-y: auto;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--bg-card);
+}
+
+.sample-item {
+	display: flex;
+	align-items: center;
+	padding: 8px 12px;
+	cursor: pointer;
+	transition: background 0.2s;
+	font-size: 0.9rem;
+}
+
+.sample-item:hover {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.sample-item input {
+	margin-right: 10px;
+	accent-color: var(--accent);
+}
+
+/* Tabs */
+.tabs {
+	display: flex;
+	border-bottom: 1px solid var(--border);
+	margin-bottom: 20px;
+}
+
+.tab-btn {
+	background: none;
+	border: none;
+	color: var(--text-med);
+	padding: 15px 25px;
+	font-size: 1rem;
+	cursor: pointer;
+	border-bottom: 2px solid transparent;
+	transition: 0.3s;
+}
+
+.tab-btn:hover {
+	color: var(--text-high);
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+	color: var(--accent);
+	border-bottom-color: var(--accent);
+}
+
+/* View Sections */
+.view-section {
+	display: none;
+	animation: fadeEffect 0.4s;
+}
+
+.view-section.active {
+	display: block;
+}
+
+/* Cards */
+.card {
+	background: var(--bg-card);
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 24px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+	margin-top: 0;
+	font-size: 1rem;
+	color: var(--text-med);
+}
+
+/* Data Table */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9rem;
+}
+
+th {
+	text-align: left;
+	padding: 12px;
+	color: var(--accent);
+	border-bottom: 1px solid var(--border);
+	cursor: pointer;
+}
+
+td {
+	padding: 12px;
+	border-bottom: 1px solid var(--border);
+	color: var(--text-med);
+}
+
+tr:hover td {
+	color: var(--text-high);
+	background: rgba(255, 255, 255, 0.03);
+}
+
+/* Focus Mode Specifics */
+.focus-stat-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+}
+
+.stat-box {
+	background: rgba(138, 180, 248, 0.1);
+	padding: 15px;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.stat-val {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: var(--text-high);
+}
+
+.stat-desc {
+	font-size: 0.8rem;
+	color: var(--text-med);
+}
+
+@keyframes fadeEffect {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
