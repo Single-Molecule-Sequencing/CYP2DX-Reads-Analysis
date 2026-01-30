@@ -88,65 +88,70 @@ def process_bam(bam_path):
 		return sample_id, {'error': str(e)}
 
 
-########
-# args #
-########
+def main():
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-i', '--input', required=True, 
-	help="BAM folder")
-parser.add_argument('-o', '--output', default="CYP2DX_Reads_Diagnostics.html", 
-	help="Output HTML file [%(default)s]")
-parser.add_argument('-j', '--workers', type=int, default=os.cpu_count(), 
-	help="Number of worker threads [%(default)i]")
-args = parser.parse_args()
+	########
+	# args #
+	########
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-i', '--input', required=True, 
+		help="BAM folder")
+	parser.add_argument('-o', '--output', default="CYP2DX_Reads_Diagnostics.html", 
+		help="Output HTML file [%(default)s]")
+	parser.add_argument('-j', '--workers', type=int, default=os.cpu_count(), 
+		help="Number of worker threads [%(default)i]")
+	args = parser.parse_args()
 
 
-########
-# main #
-########
+	########
+	# main #
+	########
 
-# Verify Assets
-asset_dir = os.path.join(os.path.dirname(__file__), 'assets')
-assets = {
-	'html': os.path.join(asset_dir, 'template.html'),
-	'css': os.path.join(asset_dir, 'style.css'),
-	'js': os.path.join(asset_dir, 'script.js')
-}
-for p in assets.values():
-	if not os.path.exists(p):
-		sys.exit(f"Missing asset: {p}")
+	# Verify Assets
+	asset_dir = os.path.join(os.path.dirname(__file__), 'assets')
+	assets = {
+		'html': os.path.join(asset_dir, 'template.html'),
+		'css': os.path.join(asset_dir, 'style.css'),
+		'js': os.path.join(asset_dir, 'script.js')
+	}
+	for p in assets.values():
+		if not os.path.exists(p):
+			sys.exit(f"Missing asset: {p}")
 
-# Process
-bams = glob.glob(os.path.join(args.input, "*.bam"))
-data = {"genes": {g: {} for g in REGIONS}, "meta": {"count": len(bams)}}
+	# Process
+	bams = glob.glob(os.path.join(args.input, "*.bam"))
+	data = {"genes": {g: {} for g in REGIONS}, "meta": {"count": len(bams)}}
 
-print(f"[{SCRIPT_NAME}] Processing {len(bams)} BAMs with {args.workers} threads...")
+	print(f"[{SCRIPT_NAME}] Processing {len(bams)} BAMs with {args.workers} threads...")
 
-with ProcessPoolExecutor(max_workers=args.workers) as exe:
-	futures = {exe.submit(process_bam, b): b for b in bams}
-	for fut in as_completed(futures):
-		sid, res = fut.result()
-		if 'error' not in res:
-			for g in REGIONS:
-				data["genes"][g][sid] = res[g]
-		else:
-			print(f"[{SCRIPT_NAME}] Failed: {sid} - {res['error']}")
+	with ProcessPoolExecutor(max_workers=args.workers) as exe:
+		futures = {exe.submit(process_bam, b): b for b in bams}
+		for fut in as_completed(futures):
+			sid, res = fut.result()
+			if 'error' not in res:
+				for g in REGIONS:
+					data["genes"][g][sid] = res[g]
+			else:
+				print(f"[{SCRIPT_NAME}] Failed: {sid} - {res['error']}")
 
-# Merge Assets into Single File
-print(f"[{SCRIPT_NAME}] Building report...")
-with open(assets['html']) as f:
-	html = f.read()
-with open(assets['css']) as f:
-	css = f.read()
-with open(assets['js']) as f:
-	js = f.read()
+	# Merge Assets into Single File
+	print(f"[{SCRIPT_NAME}] Building report...")
+	with open(assets['html']) as f:
+		html = f.read()
+	with open(assets['css']) as f:
+		css = f.read()
+	with open(assets['js']) as f:
+		js = f.read()
 
-# Inject
-final = html.replace("/*INJECT_CSS*/", css)
-final = final.replace("//INJECT_JS", js)
-final = final.replace("{{INJECT_DATA}}", json.dumps(data))
+	# Inject
+	final = html.replace("/*INJECT_CSS*/", css)
+	final = final.replace("//INJECT_JS", js)
+	final = final.replace("{{INJECT_DATA}}", json.dumps(data))
 
-with open(args.output, "w") as f:
-	f.write(final)
-print(f"[{SCRIPT_NAME}] Done: {args.output}")
+	with open(args.output, "w") as f:
+		f.write(final)
+	print(f"[{SCRIPT_NAME}] Done: {args.output}")
+
+if __name__ == "__main__":
+	main()
