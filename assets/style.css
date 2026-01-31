@@ -46,6 +46,52 @@ body {
 }
 
 /* Sidebar Elements */
+.sidebar-btn {
+	flex: 1;
+	background-color: transparent;
+	border: 1px solid var(--border);
+	color: var(--accent);
+	padding: 8px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 0.85rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	transition: all 0.2s ease;
+}
+
+.sidebar-btn:hover {
+	background-color: rgba(138, 180, 248, 0.08);
+	/* faint blue tint */
+	border-color: var(--accent);
+}
+
+.sidebar-btn:active {
+	background-color: rgba(138, 180, 248, 0.16);
+	transform: translateY(1px);
+}
+
+.sidebar-input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: var(--bg-body);
+	/* #202124 to match theme */
+	border: 1px solid var(--border);
+	border-radius: 4px;
+	color: var(--text-high);
+	font-size: 0.9rem;
+	outline: none;
+	transition: border 0.2s;
+}
+
+.sidebar-input:focus {
+	border-color: var(--accent);
+}
+
 h1 {
 	font-size: 1.2rem;
 	color: var(--accent);

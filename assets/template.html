@@ -3,7 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>CYP2DX Dark Analytics</title>
+	<title>CYP2DX Reads Diagnostics</title>
+	<meta name="author" content="Henry Li">
 	<script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
 	<style>
 		/*INJECT_CSS*/
@@ -13,25 +14,22 @@
 <body>
 	<div class="app-container">
 		<aside class="sidebar">
-			<h1>CYP2DX <span style="font-weight:normal; font-size:0.8em">Monitor</span></h1>
+			<h1>CYP2DX <span style="font-weight:normal; font-size:0.8em">Diagnostics</span></h1>
 
 			<div class="control-group">
 				<span class="control-label">Patient Filter</span>
 				<div style="display:flex; gap:10px; margin-bottom:10px;">
-					<button id="btn-all" style="flex:1; cursor:pointer;">All</button>
-					<button id="btn-none" style="flex:1; cursor:pointer;">None</button>
+					<button id="btn-all" class="sidebar-btn">All</button>
+					<button id="btn-none" class="sidebar-btn">None</button>
 				</div>
-				<input type="text" id="search-box" placeholder="Search ID..."
-					style="width:90%; padding:5px; margin-bottom:10px; background:#202124; border:1px solid #555; color:white;">
-
+				<input type="text" id="search-box" class="sidebar-input" placeholder="Search ID...">
 				<div id="sample-list" class="sample-list">
 				</div>
 			</div>
 
 			<div class="control-group">
 				<span class="control-label">Mode</span>
-				<select id="view-mode"
-					style="width:100%; padding:8px; background:#303134; color:white; border:1px solid #555;">
+				<select id="view-mode" class="sidebar-input">
 					<option value="aggregate">Aggregate Overview</option>
 					<option value="focus">Single Patient Focus</option>
 				</select>

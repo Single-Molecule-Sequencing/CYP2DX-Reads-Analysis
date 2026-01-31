@@ -118,7 +118,7 @@ function renderAggregate(container, data, ids) {
 							<th>Sample ID</th>
 							<th>Mean Cov</th>
 							<th>Cov SD</th>
-							<th>Read Len</th>
+							<th>Mean Read Len</th>
 							<th>Top 5 Reads</th>
 						</tr>
 					</thead>
