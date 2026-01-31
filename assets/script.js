@@ -200,7 +200,7 @@ function renderFocus(container, data, ids) {
 					</div>
 				</div>
 
-				<div id="mini-plot-${id}" style="height:200px; margin-top:20px;"></div>
+				<div id="mini-plot-${activeGene}-${id}" style="height:200px; margin-top:20px;"></div>
 			</div>
 		`;
 	});
@@ -210,7 +210,7 @@ function renderFocus(container, data, ids) {
 	// Render Mini Plots
 	ids.forEach(id => {
 		const s = data[id];
-		Plotly.newPlot(`mini-plot-${id}`, [{
+		Plotly.newPlot(`mini-plot-${activeGene}-${id}`, [{
 			y: s.trace,
 			type: 'scatter',
 			mode: 'lines',
