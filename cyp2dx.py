@@ -98,8 +98,8 @@ def main():
 		help="BAM folder")
 	parser.add_argument('-o', '--output', default="CYP2DX_Reads_Diagnostics.html", 
 		help="Output HTML file [%(default)s]")
-	parser.add_argument('-j', '--workers', type=int, default=os.cpu_count(), 
-		help="Number of worker threads [%(default)i]")
+	parser.add_argument('-t', '--threads', type=int, default=os.cpu_count(),
+		help="Number of threads [%(default)i]")
 	args = parser.parse_args()
 
 
@@ -122,9 +122,9 @@ def main():
 	bams = glob.glob(os.path.join(args.input, "*.bam"))
 	data = {"genes": {g: {} for g in REGIONS}, "meta": {"count": len(bams)}}
 
-	print(f"[{SCRIPT_NAME}] Processing {len(bams)} BAMs with {args.workers} threads...")
+	print(f"[{SCRIPT_NAME}] Processing {len(bams)} BAMs with {args.threads} threads...")
 
-	with ProcessPoolExecutor(max_workers=args.workers) as exe:
+	with ProcessPoolExecutor(max_workers=args.threads) as exe:
 		futures = {exe.submit(process_bam, b): b for b in bams}
 		for fut in as_completed(futures):
 			sid, res = fut.result()
