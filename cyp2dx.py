@@ -10,7 +10,6 @@ import numpy as np
 import os
 import pysam
 import sys
-from datetime import datetime
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 
