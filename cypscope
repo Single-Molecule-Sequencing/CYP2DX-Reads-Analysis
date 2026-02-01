@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# cyp2dx.py
-# Generate an HTML report summarizing coverage and read length statistics from BAM files.
+# cypscope.py
+# Generate HTML-based reports with coverage and read length statistics from BAM files.
 
 import argparse
 import glob
@@ -96,7 +96,7 @@ def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-i', '--input', required=True, 
 		help="BAM folder")
-	parser.add_argument('-o', '--output', default="CYP2DX_Reads_Diagnostics.html", 
+	parser.add_argument('-o', '--output', default="CypScope_Report.html",
 		help="Output HTML file [%(default)s]")
 	parser.add_argument('-t', '--threads', type=int, default=os.cpu_count(),
 		help="Number of threads [%(default)i]")

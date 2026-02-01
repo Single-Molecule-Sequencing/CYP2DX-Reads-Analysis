@@ -184,7 +184,7 @@ function renderFocus(container, data, ids) {
 					<h2 style="margin:0; color:white;">${id}</h2>
 					<span style="color:#8ab4f8;">${activeGene}</span>
 				</div>
-				
+
 				<div class="focus-stat-grid">
 					<div class="stat-box">
 						<div class="stat-val">${s.cov_mean}</div>
