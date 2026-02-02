@@ -48,5 +48,5 @@ conda activate cypscope
 
 ```bash
 # Run analysis
-cypscope -i /path/to/bam_folder -o report.html -t 8
+./cypscope -i /path/to/bam_folder -o report.html -t 8
 ```
